@@ -45,4 +45,10 @@ public class PatientController {
         patientRepository.deleteById(id);
         return "redirect:/patients?keyword="+keyword+"&page="+page;
     }
+
+    @GetMapping("formPatients")
+    public String formPatients(Model model){
+        model.addAttribute("patient" , new Patient());
+        return  "formPatients";
+    }
 }
