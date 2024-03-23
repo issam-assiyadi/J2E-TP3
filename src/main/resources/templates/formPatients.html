@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
 </head>
 <body>
@@ -19,19 +19,19 @@
             <form method="post" th:action="@{save}" >
             <label for="nom">Nom</label>
             <input id="nom" class="form-control" type="text" th:value="${patient.name}" th:field="*{patient.name}" >
-            <span th:errors="${patient.name}"></span>
+            <span class="text-danger" th:errors="${patient.name}"></span>
 
             <label for="date_">Date de naissance</label>
             <input id="date_" class="form-control" type="date" th:value="${patient.dateNaissance}" th:field="*{patient.dateNaissance}" >
-                <span th:errors="${patient.dateNaissance}"></span>
+                <span class="text-danger" th:errors="${patient.dateNaissance}"></span>
             <label for="state">Malade</label>
             <input id="state" class="form-check" type="checkbox" th:checked="${patient.malade}" th:field="*{patient.malade}">
-                <span th:errors="${patient.malade}"></span>
+                <span class="text-danger" th:errors="${patient.malade}"></span>
 
             <label for="score">Score</label>
             <input id="score" class="form-control" type="text" th:value="${patient.score}" th:field="*{patient.score}">
-                <span th:errors="${patient.score}"></span>
-                <button type="submit" class="btn btn-primary ">Save</button>
+                <span class="text-danger" th:errors="${patient.score}"></span>
+                <button type="submit" class="btn btn-primary form-control ">Save</button>
         </form>
     </div>
 </div>

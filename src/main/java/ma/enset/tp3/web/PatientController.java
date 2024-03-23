@@ -1,6 +1,7 @@
 package ma.enset.tp3.web;
 
 
+import jakarta.validation.Valid;
 import ma.enset.tp3.entities.Patient;
 import ma.enset.tp3.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,9 +52,9 @@ public class PatientController {
     }
 
     @PostMapping("save")
-    public String save(Model model, Patient patient){
-        System.out.println(patient.toString());
+    public String save(Model model, @Valid Patient patient, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) return  "formPatients";
         patientRepository.save(patient);
-        return  "formPatients";
+        return "redirect:/patients";
     }
 }
