@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class PatientController {
@@ -51,10 +52,27 @@ public class PatientController {
         return  "formPatients";
     }
 
+    @GetMapping("editPatients")
+    public String editPatients(Model model, Long id, String keyword, int page){
+        Patient patient = patientRepository.findById(id).orElse(null);
+        if(patient == null) throw new RuntimeException("Patient Introuvable");
+        model.addAttribute("patient", patient);
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("page",page);
+        return "editPatients";
+    }
+
     @PostMapping("save")
-    public String save(Model model, @Valid Patient patient, BindingResult bindingResult){
+    public String save(Model model,
+                       @Valid Patient patient,
+                       BindingResult bindingResult,
+                       @RequestParam(name = "page", defaultValue = "0") int page,
+                       @RequestParam(name = "keyword", defaultValue = "") String kw
+    ){
         if (bindingResult.hasErrors()) return  "formPatients";
         patientRepository.save(patient);
-        return "redirect:/patients";
+        return "redirect:/patients?keyword="+kw+"&page="+page;
     }
+
+
 }
